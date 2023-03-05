@@ -1,0 +1,25 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+*, ::before, ::after {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+
+html {
+    scroll-behavior: smooth;
+    font-family: monospace;
+}
+
+.bg-blue-800 {
+    background-color: #00050b;
+  }
+
+  .bg-image {
+    background-image: url('./images/jumpgate-3840x2160.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+  }
