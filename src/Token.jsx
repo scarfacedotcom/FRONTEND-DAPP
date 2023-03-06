@@ -13,7 +13,7 @@ import { ethers } from "ethers";
 
 const tokenContract = {
   //address: "0x759B7B7De07289224a50113378ab5b8913E349e9",
-  address: "0x6c56ED5477A02941Ef09088b6FFe8f3A7677c86a",
+  address: "0xa514495194b3295314b674ebcda114b04dd76739",
   abi: TokenABI,
 };
 
@@ -42,34 +42,40 @@ function Token() {
   } = useContractReads({
     contracts: [
       {
-        address: "0x6c56ED5477A02941Ef09088b6FFe8f3A7677c86a",
-        abi: TokenABI,
+        ...tokenContract,
         functionName: "name",
       },
       {
-        address: "0x6c56ED5477A02941Ef09088b6FFe8f3A7677c86a",
-        abi: TokenABI,
+        ...tokenContract,
         functionName: "decimals",
       },
       {
-        address: "0x6c56ED5477A02941Ef09088b6FFe8f3A7677c86a",
-        abi: TokenABI,
+        ...tokenContract,
         functionName: "symbol",
       },
-      { ...tokenContract, functionName: "totalSupply" },
-      { ...tokenContract, functionName: "balanceOf", args: [address ?? "0x0"] },
+      { 
+        ...tokenContract, 
+        functionName: "totalSupply",
+      },
+      { 
+        ...tokenContract, 
+        functionName: "balanceOf", 
+        args: [address ?? "0x0"] 
+      },
       // { address: "0x5ceA53069455C3aA07ABf87692b5E9E4052d2850", abi: TokenABI,  functionName: "name", chainId: 80001}
     ],
   });
 
-  // const { config } = usePrepareContractWrite({
-  //   ...tokenContract,
-  //   functionName: "transfer",
-  //   args: [
-  //     recipientAddress ? recipientAddress : "0x0000000000000000000000000000000000000000",
-  //     ethers.utils.parseEther(amount ? amount.toString() : "0"),
-  //   ],
-  // });
+  const { config } = usePrepareContractWrite({
+    ...tokenContract,
+    functionName: "transfer",
+    args: [
+      recipientAddress
+        ? recipientAddress
+        : "0x0000000000000000000000000000000000000000",
+      ethers.utils.parseEther(amount ? amount.toString() : "0"),
+    ],
+  });
 
   const {
     data: sendData,
